@@ -14,7 +14,6 @@ class ShipTest < Minitest::Test
   end
 
   def test_it_initializes_with_name_and_length
-    
     assert_equal "Cruiser", @ship.name
     assert_equal 3, @ship.length
     assert_equal "Submarine", @ship_2.name
@@ -23,7 +22,6 @@ class ShipTest < Minitest::Test
 
   # @health
   def test_health_equals_length
-    skip
     assert_equal @ship.length, @ship.health
     assert_equal @ship_2.length, @ship_2.health
   end
