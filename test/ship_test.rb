@@ -47,7 +47,6 @@ class ShipTest < Minitest::Test
 
   # .sunk?
   def test_it_is_sunk_or_not
-    skip
     assert_equal 3, @ship.health
     @ship.hit
     assert_equal false, @ship.sunk?
