@@ -14,6 +14,7 @@ class ShipTest < Minitest::Test
   end
 
   def test_it_initializes_with_name_and_length
+    skip
     assert_equals "Cruiser", @ship.name
     assert_equals 3, @ship.length
     assert_equals "Submarine", @ship_2.name
@@ -22,13 +23,14 @@ class ShipTest < Minitest::Test
 
   # @health
   def test_health_equals_length
+    skip
     assert_equals @ship.length, @ship.health
     assert_equals @ship_2.length, @ship_2.health
   end
 
   # .hit
   def test_hit_decreases_health_by_one
-
+    skip
     assert_equals 3, @ship.health
     @ship.hit
     assert_equals 2, @ship.health
@@ -49,6 +51,7 @@ class ShipTest < Minitest::Test
 
   # .sunk?
   def test_it_is_sunk_or_not
+    skip
     assert_equals 3, @ship.health
     @ship.hit
     assert_equals false, @ship.sunk?
