@@ -48,4 +48,21 @@ class ShipTest < Minitest::Test
   end
 
   # .sunk?
+  def test_it_is_sunk_or_not
+    assert_equals 3, @ship.health
+    @ship.hit
+    assert_equals false, @ship.sunk?
+    @ship.hit
+    assert_equals false, @ship.sunk?
+    @ship.hit
+    assert_equals true, @ship.sunk?
+
+    # second test on second ship
+    assert_equals 2, @ship_2.health
+    @ship_2.hit
+    assert_equals false, @ship_2.sunk?
+    @ship_2.hit
+    assert_equals true, @ship_2.sunk?
+  end
+
 end
