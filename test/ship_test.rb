@@ -28,7 +28,6 @@ class ShipTest < Minitest::Test
 
   # .hit
   def test_hit_decreases_health_by_one
-    skip
     assert_equal 3, @ship.health
     @ship.hit
     assert_equal 2, @ship.health
@@ -36,9 +35,8 @@ class ShipTest < Minitest::Test
     assert_equal 1, @ship.health
     @ship.hit
     assert_equal 0, @ship.health
-    # Optional last assertion to ensure health can't go below zero:
-    # @ship.hit
-    # assert_equal 0, @ship.health
+    @ship.hit
+    assert_equal 0, @ship.health
 
     assert_equal 2, @ship_2.health
     @ship_2.hit

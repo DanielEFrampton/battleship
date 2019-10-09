@@ -6,4 +6,10 @@ class Ship
     @length = length_parameter
     @health = length_parameter
   end
+
+  def hit
+    if @health > 0
+      @health -= 1
+    end
+  end
 end
