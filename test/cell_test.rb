@@ -8,6 +8,8 @@ class CellTest < Minitest::Test
   def setup
     @cell = Cell.new("B4")
     @cell_2 = Cell.new("A1")
+    @cruiser = Ship.new("Cruiser", 3)
+    @submarine = Ship.new("Submarine", 2)
   end
 
   def test_it_exists
@@ -31,22 +33,31 @@ class CellTest < Minitest::Test
   end
 
   def test_it_has_ship_after_placing_ship
-    cruiser = Ship.new("Cruiser", 3)
-    @cell.place_ship(cruiser)
-    assert_equal cruiser, @cell.ship
+    @cell.place_ship(@cruiser)
+    assert_equal @cruiser, @cell.ship
 
-    submarine = Ship.new("Submarine", 2)
-    @cell_2.place_ship(submarine)
-    assert_equal submarine, @cell_2.ship
+    @cell_2.place_ship(@submarine)
+    assert_equal @submarine, @cell_2.ship
   end
 
   def test_it_is_not_empty_after_placing_ship
-    cruiser = Ship.new("Cruiser", 3)
-    @cell.place_ship(cruiser)
+    @cruiser = Ship.new("Cruiser", 3)
+    @cell.place_ship(@cruiser)
     assert_equal false, @cell.empty?
 
-    submarine = Ship.new("Submarine", 2)
-    @cell_2.place_ship(submarine)
+    @submarine = Ship.new("Submarine", 2)
+    @cell_2.place_ship(@submarine)
     assert_equal false, @cell_2.empty?
+  end
+
+  def test_fired_upon_starts_false
+    assert_equal false, @cell.fired_upon?
+    assert_equal false, @cell_2.fired_upon?
+  end
+
+  def test_fire_upon_lowers_ship_health_by_one
+    @cell.place_ship(@submarine)
+    @cell.fire_upon
+    assert_equal 1, @cell.ship.health
   end
 end
