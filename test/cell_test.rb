@@ -25,7 +25,7 @@ class CellTest < Minitest::Test
     assert_nil @cell_2.ship
   end
 
-  def test_empty_returns_true
+  def test_empty_returns_true_initially
     assert_equal true, @cell.empty?
     assert_equal true, @cell_2.empty?
   end
@@ -38,5 +38,15 @@ class CellTest < Minitest::Test
     submarine = Ship.new("Submarine", 2)
     @cell_2.place_ship(submarine)
     assert_equal submarine, @cell_2.ship
+  end
+
+  def test_it_is_not_empty_after_placing_ship
+    cruiser = Ship.new("Cruiser", 3)
+    @cell.place_ship(cruiser)
+    assert_equal false, @cell.empty?
+
+    submarine = Ship.new("Submarine", 2)
+    @cell_2.place_ship(submarine)
+    assert_equal false, @cell_2.empty?
   end
 end
