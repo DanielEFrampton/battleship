@@ -19,4 +19,50 @@ class ShipTest < Minitest::Test
     assert_equals "Submarine", @ship_2.name
     assert_equals 2, @ship_2.length
   end
+
+  # @health
+  def test_health_equals_length
+    assert_equals @ship.length, @ship.health
+    assert_equals @ship_2.length, @ship_2.health
+  end
+
+  # .hit
+  def test_hit_decreases_health_by_one
+
+    assert_equals 3, @ship.health
+    @ship.hit
+    assert_equals 2, @ship.health
+    @ship.hit
+    assert_equals 1, @ship.health
+    @ship.hit
+    assert_equals 0, @ship.health
+    # Optional last assertion to ensure health can't go below zero:
+    # @ship.hit
+    # assert_equals 0, @ship.health
+
+    assert_equals 2, @ship_2.health
+    @ship_2.hit
+    assert_equals 1, @ship_2.health
+    @ship_2.hit
+    assert_equals 0, @ship_2.health
+  end
+
+  # .sunk?
+  def test_it_is_sunk_or_not
+    assert_equals 3, @ship.health
+    @ship.hit
+    assert_equals false, @ship.sunk?
+    @ship.hit
+    assert_equals false, @ship.sunk?
+    @ship.hit
+    assert_equals true, @ship.sunk?
+
+    # second test on second ship
+    assert_equals 2, @ship_2.health
+    @ship_2.hit
+    assert_equals false, @ship_2.sunk?
+    @ship_2.hit
+    assert_equals true, @ship_2.sunk?
+  end
+
 end
