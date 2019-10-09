@@ -49,4 +49,9 @@ class CellTest < Minitest::Test
     @cell_2.place_ship(submarine)
     assert_equal false, @cell_2.empty?
   end
+
+  def test_fired_upon_starts_false
+    assert_equal false, @cell.fired_upon?
+    assert_equal false, @cell_2.fired_upon?
+  end
 end

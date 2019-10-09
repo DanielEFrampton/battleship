@@ -13,4 +13,8 @@ class Cell
   def place_ship(ship_object_parameter)
     @ship = ship_object_parameter
   end
+
+  def fired_upon?
+    false
+  end
 end
