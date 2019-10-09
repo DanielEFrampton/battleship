@@ -41,7 +41,6 @@ class CellTest < Minitest::Test
   end
 
   def test_it_is_not_empty_after_placing_ship
-    skip
     cruiser = Ship.new("Cruiser", 3)
     @cell.place_ship(cruiser)
     assert_equal false, @cell.empty?
