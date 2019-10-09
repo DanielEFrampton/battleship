@@ -8,4 +8,8 @@ class Cell
   def ship
     nil
   end
+
+  def empty?
+    true
+  end
 end
