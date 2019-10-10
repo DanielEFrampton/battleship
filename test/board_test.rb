@@ -26,7 +26,7 @@ class BoardTest < Minitest::Test
     # Confirms the class of every key is String, and every value is Cell
     assert_equal true, @board.cells.keys.all? {|key| key.class == String}
     assert_equal true, @board.cells.values.all? {|value| value.class == Cell}
-    
+
     # Confirms each key has a length of 2
     assert_equal 2, @board.cells.keys.sample.length
   end
@@ -42,15 +42,30 @@ class BoardTest < Minitest::Test
     assert_equal false, @board.valid_coordinate?("D5")
   end
 
-  def test_it_can_check_valid_placement_of_ship
-    # Confirms return value is false if length of placement is different than length of ship
+  def test_it_denies_valid_placement_when_length_of_cells_is_wrong
+    # Confirms return value is false if number of cells is different than length of ship
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2"]) # Too short
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "A3", "A4"]) # Too long
     assert_equal false, @board.valid_placement?(@submarine, ["A2", "A3", "A4"]) # Too long
     assert_equal false, @board.valid_placement?(@submarine, ["A2"]) # Too short
+  end
 
+  def test_it_denies_valid_placement_when_cells_are_not_consecutive_or_misordered
     # Confirms return value is false if placement cells are non-consecutive
+    assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "A4"]) # Missing A3
+    assert_equal false, @board.valid_placement?(@submarine, ["A1", "C1"]) # Missing B1
+  end
 
+  def test_it_denies_valid_placement_when_cells_are_not_left_to_right_or_top_to_bottom
+    # Confirms return value is false if cells are not in left-to-right or top-to-bottom order
+    assert_equal false, @board.valid_placement?(@cruiser, ["A3", "A2", "A1"]) # Right-to-left
+    assert_equal false, @board.valid_placement?(@submarine, ["C1", "B1"]) # Bottom-to-top
+  end
+
+  def test_it_denies_valid_placement_when_cells_are_diagonal
+    # Confirms return value is false if placement cells are diagonal
+    assert_equal false, @board.valid_placement?(@cruiser, ["A1", "B2", "C3"])
+    assert_equal false, @board.valid_placement?(submarine, ["C2", "D3"])
   end
 
   def
