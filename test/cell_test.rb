@@ -68,5 +68,8 @@ class CellTest < Minitest::Test
     assert_equal true, @cell.fired_upon?
   end
 
-
+  def test_fire_upon_reduces_health
+    @cell.fire_upon
+    assert_equal @ship.health, @ship.length - 1
+  end
 end
