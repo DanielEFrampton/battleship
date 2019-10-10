@@ -29,6 +29,17 @@ class BoardTest < Minitest::Test
 
     # Confirms each key has a length of 2
     assert_equal 2, @board.cells.keys.sample.length
+
+    # Confirms each key is made up of A-D and 1-4
+    letter_range = ("A".."D").to_a
+    number_range = (1..4).to_a
+    possible_combinations = []
+    letter_range.each do |letter|
+      number_range.each do |number|
+        possible_combinations << "#{letter}#{number}"
+      end
+    end
+    assert_equal true, @board.cells.keys.all? {|key| possible_combinations.include?(key)}
   end
 
   def test_it_can_identify_a_valid_coordinate
