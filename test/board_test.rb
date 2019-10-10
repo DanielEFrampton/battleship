@@ -24,21 +24,21 @@ class BoardTest < Minitest::Test
     # Confirms Hash has 16 key-value pairs
     assert_equal 16, @board.cells.size
 
-    # Confirms the class of every key is String, and every value is Cell
-    assert_equal true, @board.cells.keys.all? {|key| key.class == String}
+    # Confirms the class of every value is Cell
     assert_equal true, @board.cells.values.all? {|value| value.class == Cell}
+  end
+
+  def test_it_has_hash_of_coordinate_string_keys
+    skip
+    # Confirms the class of every key is String
+    assert_equal true, @board.cells.keys.all? {|key| key.class == String}
 
     # Confirms each key has a length of 2
-    assert_equal 2, @board.cells.keys.sample.length
+    assert_equal 2, @board.cells.keys.all? {|key| key.length}
 
-    # Confirms each key is made up of A-D and 1-4; consider moving to class itself
-    letter_range = ("A".."D").to_a
-    number_range = (1..4).to_a
-    possible_combinations = []
-    letter_range.each do |letter|
-      number_range.each do |number|
-        possible_combinations << "#{letter}#{number}"
-      end
+    # Confirms each key is made up of A-D and 1-4; consider moving code to class itself
+    possible_combinations = ("A".."D").reduce([]) do |coord_array, letter|
+      coord_array += (1..4).map { |number| "#{letter}#{number}" }
     end
     assert_equal true, @board.cells.keys.all? {|key| possible_combinations.include?(key)}
   end
