@@ -1,13 +1,14 @@
 class Cell
-  attr_reader :coordinate, :ship
+  attr_reader :coordinate, :ship, :fired_upon
 
-  def initialize(coordinate_parameter)
+  def initialize(coordinate_parameter, ship = nil)
     @coordinate = coordinate_parameter
-    @ship = nil
+    @ship = ship
+    @empty = true
   end
 
   def empty?
-    @ship == nil
+    @empty
   end
 
   def place_ship(ship_object_parameter)
@@ -16,5 +17,13 @@ class Cell
 
   def fired_upon?
     false
+  end
+
+  def fire_upon
+    if @empty == true
+      "Missed!"
+    else
+      @ship.hit
+    end
   end
 end
