@@ -7,7 +7,7 @@ class Cell
   end
 
   def empty?
-    @empty
+    @ship == nil
   end
 
   def place_ship(ship_object_parameter)
