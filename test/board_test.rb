@@ -87,6 +87,7 @@ class BoardTest < Minitest::Test
 
   # Test .place
   def test_it_can_place_same_ship_in_multiple_cells
+    skip
     # Testing on first ship
     @board.place(@cruiser, ["A1", "A2", "A3"])
     assert_equal @cruiser, @board.cells["A1"].ship
@@ -103,6 +104,7 @@ class BoardTest < Minitest::Test
 
   # Test that .place does not allow overlapping ships
   def test_it_denies_valid_placement_if_ship_is_in_any_cells
+    skip
     # Testing first ship
     @board.place(@cruiser, ["A1", "A2", "A3"])
     assert_equal false, @board.valid_placement?("A1")
@@ -115,8 +117,20 @@ class BoardTest < Minitest::Test
     assert_equal false, @board.valid_placement?("C4")
   end
 
-  # Test .render
+  # Test .render method
+  def test_it_can_render_initial_board_state
+    skip
+    # Testing what board should render as after ships placed, but before any player turns occur
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+    @board.place(@submarine, ["C4," "D4"])
+    beginning_board_render = "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
+    assert_equal beginning_board_render, @board.render
 
-  # Test .render with "true" option
+    # Testing what board should render as with "true" optional parameter, showing ships
+    ship_placed_board_render = "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . S \nD . . . S \n"
+    assert_equal ship_placed_board_render, @board.render(true)
+  end
+
+  # Add tests later for board state after cells have been fired upon, ships sunk, etc.
 
 end
