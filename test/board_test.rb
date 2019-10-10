@@ -13,7 +13,7 @@ class BoardTest < Minitest::Test
     assert_instance_of Board, @board
   end
 
-  def test_it_has_cells_hash_with_sixteen_two_char_string_keys_with_cell_values
+  def test_it_starts_with_hash_of_cells
     # Checks if .cells returns a Hash object
     assert_instance_of Hash, @board.cells
     # Checks if Hash has 16 key-value pairs
