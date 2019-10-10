@@ -71,7 +71,7 @@ class CellTest < Minitest::Test
     @cell.fire_upon
     @cell_2.fire_upon
 
-    assert_equal @cell.ship.health, @cell.ship.length -1
-    assert_equal @cell_2.ship.health, @cell_2.ship.lenth -1
+    assert_equal @cell.ship.health, @cell.ship.length - 1
+    assert_equal @cell_2.ship.health, @cell_2.ship.length - 1
     end
 end
