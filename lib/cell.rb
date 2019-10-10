@@ -17,4 +17,10 @@ class Cell
   def fired_upon?
     false
   end
+
+  def fire_upon
+    if !empty?
+      @ship.hit
+    end
+  end
 end
