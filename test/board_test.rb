@@ -31,7 +31,7 @@ class BoardTest < Minitest::Test
     # Confirms each key has a length of 2
     assert_equal 2, @board.cells.keys.sample.length
 
-    # Confirms each key is made up of A-D and 1-4
+    # Confirms each key is made up of A-D and 1-4; consider moving to class itself
     letter_range = ("A".."D").to_a
     number_range = (1..4).to_a
     possible_combinations = []
@@ -82,12 +82,38 @@ class BoardTest < Minitest::Test
     skip
     # Confirms return value is false if placement cells are diagonal
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "B2", "C3"])
-    assert_equal false, @board.valid_placement?(submarine, ["C2", "D3"])
+    assert_equal false, @board.valid_placement?(@submarine, ["C2", "D3"])
   end
 
   # Test .place
+  def test_it_can_place_same_ship_in_multiple_cells
+    # Testing on first ship
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+    assert_equal @cruiser, @board.cells["A1"].ship
+    assert_equal @cruiser, @board.cells["A2"].ship
+    assert_equal @cruiser, @board.cells["A3"].ship
+    assert_same @board.cells["A1"].ship, @board.cells["A2"].ship
+
+    # Testing on second ship in different location
+    @board.place(@submarine, ["C4," "D4"])
+    assert_equal @submarine, @board.cells["C4"].ship
+    assert_equal @submarine, @board.cells["D4"].ship
+    assert_same @board.cells["C4"].ship, @board.cells["D4"].ship
+  end
 
   # Test that .place does not allow overlapping ships
+  def test_it_denies_valid_placement_if_ship_is_in_any_cells
+    # Testing first ship
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+    assert_equal false, @board.valid_placement?("A1")
+    assert_equal false, @board.valid_placement?("A2")
+    assert_equal false, @board.valid_placement?("A3")
+
+    # Testing second ship in different location
+    @board.place(@submarine, ["C3," "C4"])
+    assert_equal false, @board.valid_placement?("C3")
+    assert_equal false, @board.valid_placement?("C4")
+  end
 
   # Test .render
 
