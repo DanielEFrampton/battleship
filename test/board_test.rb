@@ -42,7 +42,7 @@ class BoardTest < Minitest::Test
     assert_equal true, @board.cells.keys.all? {|key| possible_combinations.include?(key)}
 
     # Add check to confirm coordinate of cell is same as key
-    assert_equal true, @board.cells.all? {|key, cell| cell.coordinate == key}
+    assert_equal 0, @board.cells.count {|key, cell| cell.coordinate != key}
   end
 
   def test_it_can_identify_a_valid_coordinate
