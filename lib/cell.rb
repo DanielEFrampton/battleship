@@ -25,4 +25,18 @@ class Cell
       @ship.hit
     end
   end
+
+  def render(display_ships_boolean = false)
+    if fired_upon? && empty?
+      "M"
+    elsif !fired_upon? && !empty? && display_ships_boolean
+      "S"
+    elsif fired_upon? && !empty? && !@ship.sunk?
+      "H"
+    elsif fired_upon? && !empty? && @ship.sunk?
+      "X"
+    else
+      "."
+    end
+  end
 end
