@@ -107,14 +107,9 @@ class BoardTest < Minitest::Test
     skip
     # Testing first ship
     @board.place(@cruiser, ["A1", "A2", "A3"])
-    assert_equal false, @board.valid_placement?("A1")
-    assert_equal false, @board.valid_placement?("A2")
-    assert_equal false, @board.valid_placement?("A3")
-
-    # Testing second ship in different location
-    @board.place(@submarine, ["C3," "C4"])
-    assert_equal false, @board.valid_placement?("C3")
-    assert_equal false, @board.valid_placement?("C4")
+    assert_equal false, @board.valid_placement?(@submarine, ["A1," "B1"])
+    assert_equal false, @board.valid_placement?(@submarine, ["A2," "B2"])
+    assert_equal false, @board.valid_placement?(@submarine, ["A3," "B3"])
   end
 
   # Test .render method
