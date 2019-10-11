@@ -17,7 +17,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_it_starts_with_hash_of_cells
-    skip
+
     # Confirms .cells returns a Hash object
     assert_instance_of Hash, @board.cells
 
@@ -29,18 +29,20 @@ class BoardTest < Minitest::Test
   end
 
   def test_it_has_hash_of_coordinate_string_keys
-    skip
     # Confirms the class of every key is String
     assert_equal true, @board.cells.keys.all? {|key| key.class == String}
 
     # Confirms each key has a length of 2
-    assert_equal 2, @board.cells.keys.all? {|key| key.length}
+    assert_equal true, @board.cells.keys.all? {|key| key.length == 2}
 
     # Confirms each key is made up of A-D and 1-4; consider moving code to class itself
     possible_combinations = ("A".."D").reduce([]) do |coord_array, letter|
       coord_array += (1..4).map { |number| "#{letter}#{number}" }
     end
     assert_equal true, @board.cells.keys.all? {|key| possible_combinations.include?(key)}
+
+    # Add check to confirm coordinate of cell is same as key
+    assert_equal true, @board.cells.all? {|key, cell| cell.coordinate == key}
   end
 
   def test_it_can_identify_a_valid_coordinate
