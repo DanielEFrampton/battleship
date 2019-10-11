@@ -23,4 +23,8 @@ class Board
   def valid_coordinate?(coordinate_parameter)
     cells.keys.include?(coordinate_parameter)
   end
+
+  def valid_placement?(ship_object_parameter, array_of_coordinates)
+    ship_object_parameter.length == array_of_coordinates.length
+  end
 end

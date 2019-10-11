@@ -57,7 +57,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_it_denies_valid_placement_when_length_of_cells_is_wrong
-    skip
+  
     # Confirms return value is false if number of cells is different than length of ship
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2"]) # Too short
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "A3", "A4"]) # Too long
