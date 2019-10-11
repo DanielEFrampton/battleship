@@ -46,7 +46,6 @@ class BoardTest < Minitest::Test
   end
 
   def test_it_can_identify_a_valid_coordinate
-    skip
     # Confirms returns true if coordinate exists as a key in hash of cells
     assert_equal true, @board.valid_coordinate?("A4")
     assert_equal true, @board.valid_coordinate?("B2")
