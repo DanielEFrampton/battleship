@@ -85,7 +85,7 @@ class CellTest < Minitest::Test
     @cell.fire_upon
     assert_equal "M", @cell.render
 
-    @cell_2.place_ship(cruiser)
+    @cell_2.place_ship(@cruiser)
     assert_equal ".", @cell_2.render
     assert_equal "S", @cell_2.render(true)
     @cell_2.fire_upon
