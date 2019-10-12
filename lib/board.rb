@@ -29,6 +29,11 @@ class Board
     unless array_of_coordinates.all? { |coordinate| valid_coordinate?(coordinate) }
       return false
     end
+
+    if array_of_coordinates.any? { |coordinate| !@cells[coordinate].empty? }
+      return false
+    end
+
     # Confirm that length of array is same as ship length
     if ship_object_parameter.length == array_of_coordinates.length
       letters = []

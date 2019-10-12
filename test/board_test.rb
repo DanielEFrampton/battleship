@@ -112,22 +112,27 @@ class BoardTest < Minitest::Test
 
   # Test that .place does not allow overlapping ships
   def test_it_denies_valid_placement_if_ship_is_in_any_cells
-    skip
     # Testing first ship
     @board.place(@cruiser, ["A1", "A2", "A3"])
-    assert_equal false, @board.valid_placement?(@submarine, ["A1," "B1"])
-    assert_equal false, @board.valid_placement?(@submarine, ["A2," "B2"])
-    assert_equal false, @board.valid_placement?(@submarine, ["A3," "B3"])
-  end
+    assert_equal false, @board.valid_placement?(@submarine, ["A1", "B1"])
+    assert_equal false, @board.valid_placement?(@submarine, ["A2", "B2"])
+    assert_equal false, @board.valid_placement?(@submarine, ["A3", "B3"])
 
+    assert_equal true, @board.valid_placement?(@submarine, ["B1", "B2"]) # Horizontal
+    assert_equal true, @board.valid_placement?(@submarine, ["B1", "C1"]) # Vertical
+  end
 
   # Test .render method
   def test_it_can_render_initial_board_state
     skip
     # Testing what board should render as after ships placed, but before any player turns occur
     @board.place(@cruiser, ["A1", "A2", "A3"])
-    @board.place(@submarine, ["C4," "D4"])
-    beginning_board_render = "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
+    @board.place(@submarine, ["C4", "D4"])
+    beginning_board_render = "  1 2 3 4 \n" +
+                             "A . . . . \n" +
+                             "B . . . . \n" +
+                             "C . . . . \n" +
+                             "D . . . . \n"
     assert_equal beginning_board_render, @board.render
 
     # Testing what board should render as with "true" optional parameter, showing ships
