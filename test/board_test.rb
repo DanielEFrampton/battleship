@@ -96,7 +96,6 @@ class BoardTest < Minitest::Test
   end
 
   def test_it_can_place_same_ship_in_multiple_cells
-    skip
     # Testing on first ship
     @board.place(@cruiser, ["A1", "A2", "A3"])
     assert_equal @cruiser, @board.cells["A1"].ship
@@ -105,7 +104,7 @@ class BoardTest < Minitest::Test
     assert_same @board.cells["A1"].ship, @board.cells["A2"].ship
 
     # Testing on second ship in different location
-    @board.place(@submarine, ["C4," "D4"])
+    @board.place(@submarine, ["C4", "D4"])
     assert_equal @submarine, @board.cells["C4"].ship
     assert_equal @submarine, @board.cells["D4"].ship
     assert_same @board.cells["C4"].ship, @board.cells["D4"].ship
