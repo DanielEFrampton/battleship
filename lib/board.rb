@@ -25,6 +25,23 @@ class Board
   end
 
   def valid_placement?(ship_object_parameter, array_of_coordinates)
-    ship_object_parameter.length == array_of_coordinates.length
+    # Confirm that length of array is same as ship length
+    if ship_object_parameter.length == array_of_coordinates.length
+      letters = []
+      numbers = []
+      array_of_coordinates.each do |coordinate|
+        letters << coordinate.split[0]
+        numbers << coordinate.split[1].to_i
+      end
+      all_letters_are_same = letters.all? {|letter| letter == letters[0] }
+      all_numbers_are_same = numbers.all? {|number| number == numbers[0] }
+      numbers_are_in_order = (numbers.first..numbers.last).to_a == numbers
+      letters_are_in_order = (letters.first..letters.last).to_a == letters
+      all_letters_are_same && numbers_are_in_order || letters_are_in_order && numbers_are_the_same
+    else
+      false
+    end
   end
+
+
 end
