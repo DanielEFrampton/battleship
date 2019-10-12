@@ -83,7 +83,18 @@ class BoardTest < Minitest::Test
     assert_equal false, @board.valid_placement?(@submarine, ["C2", "D3"])
   end
 
+  def test_it_confirms_valid_placement
+    assert_equal true, @board.valid_placement?(@cruiser, ["A1", "A2", "A3"])
+    assert_equal true, @board.valid_placement?(@cruiser, ["A1", "B1", "C1"])
+    assert_equal true, @board.valid_placement?(@submarine, ["C2", "C3"])
+    assert_equal true, @board.valid_placement?(@submarine, ["C2", "D2"])
+  end
   # Test .place
+  def test_it_denies_edge_case_values_as_valid_placements
+    assert_equal false, @board.valid_placement?(@cruiser, ["A0", "B0", "C0"])
+    assert_equal false, @board.valid_placement?(@submarine, [nil, nil])
+  end
+
   def test_it_can_place_same_ship_in_multiple_cells
     skip
     # Testing on first ship
@@ -109,6 +120,7 @@ class BoardTest < Minitest::Test
     assert_equal false, @board.valid_placement?(@submarine, ["A2," "B2"])
     assert_equal false, @board.valid_placement?(@submarine, ["A3," "B3"])
   end
+
 
   # Test .render method
   def test_it_can_render_initial_board_state
