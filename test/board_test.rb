@@ -57,7 +57,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_it_denies_valid_placement_when_length_of_cells_is_wrong
-  
+
     # Confirms return value is false if number of cells is different than length of ship
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2"]) # Too short
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "A3", "A4"]) # Too long
@@ -66,21 +66,18 @@ class BoardTest < Minitest::Test
   end
 
   def test_it_denies_valid_placement_when_cells_are_not_consecutive_or_misordered
-    skip
     # Confirms return value is false if placement cells are non-consecutive
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "A2", "A4"]) # Missing A3
     assert_equal false, @board.valid_placement?(@submarine, ["A1", "C1"]) # Missing B1
   end
 
   def test_it_denies_valid_placement_when_cells_are_not_left_to_right_or_top_to_bottom
-    skip
     # Confirms return value is false if cells are not in left-to-right or top-to-bottom order
     assert_equal false, @board.valid_placement?(@cruiser, ["A3", "A2", "A1"]) # Right-to-left
     assert_equal false, @board.valid_placement?(@submarine, ["C1", "B1"]) # Bottom-to-top
   end
 
   def test_it_denies_valid_placement_when_cells_are_diagonal
-    skip
     # Confirms return value is false if placement cells are diagonal
     assert_equal false, @board.valid_placement?(@cruiser, ["A1", "B2", "C3"])
     assert_equal false, @board.valid_placement?(@submarine, ["C2", "D3"])
