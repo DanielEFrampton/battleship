@@ -29,6 +29,11 @@ class Board
     unless array_of_coordinates.all? { |coordinate| valid_coordinate?(coordinate) }
       return false
     end
+
+    if array_of_coordinates.any? { |coordinate| !@cells[coordinate].empty? }
+      return false
+    end
+
     # Confirm that length of array is same as ship length
     if ship_object_parameter.length == array_of_coordinates.length
       letters = []
@@ -53,4 +58,11 @@ class Board
     end
   end
 
+  def render(show_ships_boolean = false)
+    "  1 2 3 4 \n" +
+    "A #{["A1", "A2", "A3", "A4"].map { |coord| @cells[coord].render(show_ships_boolean)}.join(" ")} \n" +
+    "B #{["B1", "B2", "B3", "B4"].map { |coord| @cells[coord].render(show_ships_boolean)}.join(" ")} \n" +
+    "C #{["C1", "C2", "C3", "C4"].map { |coord| @cells[coord].render(show_ships_boolean)}.join(" ")} \n" +
+    "D #{["D1", "D2", "D3", "D4"].map { |coord| @cells[coord].render(show_ships_boolean)}.join(" ")} \n"
+  end
 end
