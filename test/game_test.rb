@@ -27,7 +27,7 @@ class GameTest < Minitest::Test
     assert_equal 3, @game_1.possible_ships[:cruiser].length
     assert_equal 2, @game_1.possible_ships[:submarine].length
     assert_equal [:computer_shot, :computer_result, :player_shot, :player_result], @game_1.last_turn.keys
-    assert_nil @game_1.last_turn.values.all? {|value| value == nil}
+    assert_equal true, @game_1.last_turn.values.all? {|value| value == nil}
   end
 
 
