@@ -145,4 +145,12 @@ class BoardTest < Minitest::Test
 
   # Add tests later for board state after cells have been fired upon, ships sunk, etc.
 
+  def test_it_can_pick_random_coord
+    assert_equal true, @board.cells.keys.include?(@board.random_coord)
+  end
+
+  def test_it_can_pick_random_cell
+    assert_instance_of Cell, @board.random_cell
+    assert_equal true, @board.cells.values.include?(@board.random_cell)
+  end
 end

@@ -65,4 +65,13 @@ class Board
     "C #{["C1", "C2", "C3", "C4"].map { |coord| @cells[coord].render(show_ships_boolean)}.join(" ")} \n" +
     "D #{["D1", "D2", "D3", "D4"].map { |coord| @cells[coord].render(show_ships_boolean)}.join(" ")} \n"
   end
+
+  def random_coord
+    @cells.keys.sample
+  end
+
+  def random_cell
+    @cells[random_coord]
+  end
+
 end
