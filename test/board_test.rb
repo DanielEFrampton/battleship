@@ -153,4 +153,11 @@ class BoardTest < Minitest::Test
     assert_instance_of Cell, @board.random_cell
     assert_equal true, @board.cells.values.include?(@board.random_cell)
   end
+
+  def test_it_can_place_ship_randomly
+    @board.place_ship_randomly(@cruiser)
+    assert_equal @cruiser.length, @board.cells.values.count{|cell| cell.ship == @cruiser}
+    @board.place_ship_randomly(@submarine)
+    assert_equal @submarine.length, @board.cells.values.count{|cell| cell.ship == @submarine}
+  end
 end
