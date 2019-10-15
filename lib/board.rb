@@ -95,15 +95,20 @@ class Board
         incremented_letter = (coord_letter.ord + index_number).chr
         vertical_array << "#{incremented_letter}#{coord_number}"
       end
-      require "pry"; binding.pry
+
     # randomly choose one of the arrays
-
-    # check if it's a valid placement
-
-    # if placement valid, place a ship there
-
-    # if placement invalid, try the other array
+      chosen_random_array = [horizontal_array, vertical_array].sample
+      if chosen_random_array == horizontal_array
+        other_random_array = vertical_array
+      else
+        other_random_array = horizontal_array
+      end
+      
+      if valid_placement?(ship_object, chosen_random_array)
+        place(ship_object, chosen_random_array)
+      elsif valid_placement?(ship_object, other_random_array)
+        place(ship_object, other_random_array)
+      end
     end
   end
-
 end
