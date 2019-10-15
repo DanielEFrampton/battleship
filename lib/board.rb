@@ -103,11 +103,21 @@ class Board
       else
         other_random_array = horizontal_array
       end
-      
+
       if valid_placement?(ship_object, chosen_random_array)
         place(ship_object, chosen_random_array)
       elsif valid_placement?(ship_object, other_random_array)
         place(ship_object, other_random_array)
+      end
+    end
+  end
+
+  def fire_upon_random_cell
+    current_cells_fired_upon = @cells.values.count { |cell| cell.fired_upon? }
+    until @cells.values.count { |cell| cell.fired_upon? } == current_cells_fired_upon + 1
+      chosen_random_cell = random_cell
+      if !chosen_random_cell.fired_upon?
+        chosen_random_cell.fire_upon
       end
     end
   end
