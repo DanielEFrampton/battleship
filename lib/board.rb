@@ -83,14 +83,19 @@ class Board
       coord_number = initial_coord.chars[1]
     # generate Horizontal array of coordinates based on first random coordinate
       horizontal_array = []
-      ship_object.length.times do |number|
+      ship_object.length.times do |index_number|
         incremented_number = coord_number.to_i
-        incremented_number += number
+        incremented_number += index_number
         horizontal_array << "#{coord_letter}#{incremented_number}"
       end
 
     # generate Vertical array of coordinates based on first random coordinate
-
+      vertical_array = []
+      ship_object.length.times do |index_number|
+        incremented_letter = (coord_letter.ord + index_number).chr
+        vertical_array << "#{incremented_letter}#{coord_number}"
+      end
+      require "pry"; binding.pry
     # randomly choose one of the arrays
 
     # check if it's a valid placement
