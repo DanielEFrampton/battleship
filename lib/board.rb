@@ -65,4 +65,40 @@ class Board
     "C #{["C1", "C2", "C3", "C4"].map { |coord| @cells[coord].render(show_ships_boolean)}.join(" ")} \n" +
     "D #{["D1", "D2", "D3", "D4"].map { |coord| @cells[coord].render(show_ships_boolean)}.join(" ")} \n"
   end
+
+  def random_coord
+    @cells.keys.sample
+  end
+
+  def random_cell
+    @cells[random_coord]
+  end
+
+  def place_ship_randomly(ship_object)
+    until ship_object.length == @cells.values.count{|cell| cell.ship == ship_object}
+
+    # get a random coordinate
+      initial_coord = random_coord
+      coord_letter = initial_coord.chars[0]
+      coord_number = initial_coord.chars[1]
+    # generate Horizontal array of coordinates based on first random coordinate
+      horizontal_array = []
+      ship_object.length.times do |number|
+        incremented_number = coord_number.to_i
+        incremented_number += number
+        horizontal_array << "#{coord_letter}#{incremented_number}"
+      end
+
+    # generate Vertical array of coordinates based on first random coordinate
+
+    # randomly choose one of the arrays
+
+    # check if it's a valid placement
+
+    # if placement valid, place a ship there
+
+    # if placement invalid, try the other array
+    end
+  end
+
 end
