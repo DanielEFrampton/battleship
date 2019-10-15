@@ -160,4 +160,39 @@ class BoardTest < Minitest::Test
     @board.place_ship_randomly(@submarine)
     assert_equal @submarine.length, @board.cells.values.count{|cell| cell.ship == @submarine}
   end
+
+  def test_it_shoots_at_random_coordinate
+    @board.fire_upon_random_cell
+    assert_equal 1, @board.cells.values.count { |cell| cell.fired_upon? }
+    @board.fire_upon_random_cell
+    assert_equal 2, @board.cells.values.count { |cell| cell.fired_upon? }
+    @board.fire_upon_random_cell
+    assert_equal 3, @board.cells.values.count { |cell| cell.fired_upon? }
+    @board.fire_upon_random_cell
+    assert_equal 4, @board.cells.values.count { |cell| cell.fired_upon? }
+    @board.fire_upon_random_cell
+    assert_equal 5, @board.cells.values.count { |cell| cell.fired_upon? }
+    @board.fire_upon_random_cell
+    assert_equal 6, @board.cells.values.count { |cell| cell.fired_upon? }
+    @board.fire_upon_random_cell
+    assert_equal 7, @board.cells.values.count { |cell| cell.fired_upon? }
+    @board.fire_upon_random_cell
+    assert_equal 8, @board.cells.values.count { |cell| cell.fired_upon? }
+    @board.fire_upon_random_cell
+    assert_equal 9, @board.cells.values.count { |cell| cell.fired_upon? }
+    @board.fire_upon_random_cell
+    assert_equal 10, @board.cells.values.count { |cell| cell.fired_upon? }
+    @board.fire_upon_random_cell
+    assert_equal 11, @board.cells.values.count { |cell| cell.fired_upon? }
+    @board.fire_upon_random_cell
+    assert_equal 12, @board.cells.values.count { |cell| cell.fired_upon? }
+    @board.fire_upon_random_cell
+    assert_equal 13, @board.cells.values.count { |cell| cell.fired_upon? }
+    @board.fire_upon_random_cell
+    assert_equal 14, @board.cells.values.count { |cell| cell.fired_upon? }
+    @board.fire_upon_random_cell
+    assert_equal 15, @board.cells.values.count { |cell| cell.fired_upon? }
+    @board.fire_upon_random_cell
+    assert_equal 16, @board.cells.values.count { |cell| cell.fired_upon? }
+  end
 end
