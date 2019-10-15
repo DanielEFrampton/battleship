@@ -17,6 +17,7 @@ class Runner
       user_input = gets.chomp
       if user_input == 'p'
         setup # proceed to next step of game
+        game_turns # after setup proceed to main game
       elsif user_input == 'q'
         break # ends the main_menu method, closing the Ruby file
       end
@@ -29,22 +30,31 @@ class Runner
     @game.possible_ships.each do |ship_name, ship_object|
       @game.computer_board.place_ship_randomly(ship_object)
     end
-    # loop to prompt user to place all ships
-      # a message that computer is done placing ships
-      # explanation of how to place ships
-      # visual representation of the board
-      # and instruction to enter coordinates for the first ship
-      # get user input
-      # convert to coordinates
-      # if placement is valid place ship
-      # if not repeat instruction
-      # prompt again
-    # proceed to main turn phase
-  end
 
-  # def convert_to_array(input)
-  #   input.split(' ')
-  # end
+    puts "I have laid out my ships on the grid."
+    puts "You now need to lay out your two ships."
+    puts "The Cruiser is three units long, and the Submarine is two units long."
+
+    # loop to prompt user to place all ships
+    @game.possible_ships.each do |ship_name, ship_object|
+      until @game.player_board.cells.values.any? {|cell| cell.ship == ship_object}
+        puts @game.player_board.render(true)
+        puts "Enter the coordinates for the #{@game.possible_ships[ship_name].name}:"
+        user_input = gets.chomp.upcase.split(' ')
+        if @game.player_board.valid_placement?(ship_object, user_input)
+          @game.player_board.place(ship_object, user_input)
+        else
+          puts "Those coordinates were invalid. Use the format: A1 A2#{" A3" if ship_name == :cruiser}"
+        end
+      end
+    end
+  end
+  # after designing game turns revisit whether to render the board one more time
+
+  def game_turns
+    # until @game.game_over?
+    # end
+  end
 end
 
 runner = Runner.new
