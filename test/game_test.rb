@@ -17,6 +17,7 @@ class GameTest < Minitest::Test
   end
 
   def test_it_initializes
+    # Break this into multiple tests
     assert_instance_of Board, @game_1.player_board
     assert_instance_of Board, @game_1.computer_board
     assert_instance_of Hash, @game_1.possible_ships
