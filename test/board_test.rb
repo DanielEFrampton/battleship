@@ -16,10 +16,6 @@ class BoardTest < Minitest::Test
     assert_instance_of Board, @board
   end
 
-  def test_it_starts_with_no_previous_random_shot
-    assert_nil @board.previous_random_shot
-  end
-
   def test_it_starts_with_hash_of_cells
 
     # Confirms .cells returns a Hash object
@@ -47,6 +43,10 @@ class BoardTest < Minitest::Test
 
     # Add check to confirm coordinate of cell is same as key
     assert_equal 0, @board.cells.count {|key, cell| cell.coordinate != key}
+  end
+
+  def test_it_starts_with_no_previous_random_shot
+    assert_nil @board.previous_random_shot
   end
 
   def test_it_can_identify_a_valid_coordinate
@@ -203,5 +203,58 @@ class BoardTest < Minitest::Test
   def test_it_remembers_previous_random_shot
     @board.fire_upon_random_cell
     assert_equal true, @board.valid_coordinate?(@board.previous_random_shot)
+  end
+
+  def test_it_return_list_of_all_ships_on_board
+    @board.place_ship_randomly(@cruiser)
+    @board.place_ship_randomly(@submarine)
+    expected_array = [@cruiser, @submarine].sort_by {|ship| ship.name}
+    assert_equal expected_array, @board.all_ships.sort_by {|ship| ship.name}
+  end
+
+  def test_it_can_check_if_all_ships_sunk
+    @board.place_ship_randomly(@cruiser)
+    @board.place_ship_randomly(@submarine)
+    assert_equal false, @board.all_ships_sunk?
+    @cruiser.hit
+    @cruiser.hit
+    @cruiser.hit
+    assert_equal false, @board.all_ships_sunk?
+    @submarine.hit
+    @submarine.hit
+    assert_equal true, @board.all_ships_sunk?
+  end
+
+  def test_it_can_check_if_cell_fired_upon
+    assert_equal false, @board.cell_fired_upon?("A1")
+    @board.cells["A1"].fire_upon
+    assert_equal true, @board.cell_fired_upon?("A1")
+
+    assert_equal false, @board.cell_fired_upon?("D2")
+    @board.cells["D2"].fire_upon
+    assert_equal true, @board.cell_fired_upon?("D2")
+  end
+
+  def test_it_can_fire_upon_cell
+    assert_equal false, @board.cell_fired_upon?("A1")
+    @board.fire_upon_cell("A1")
+    assert_equal true, @board.cell_fired_upon?("A1")
+
+    assert_equal false, @board.cell_fired_upon?("D2")
+    @board.fire_upon_cell("D2")
+    assert_equal true, @board.cell_fired_upon?("D2")
+  end
+
+  def test_it_can_return_string_of_shot_result
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+    @board.fire_upon_cell("A1")
+    assert_equal "was a hit", @board.shot_result("A1")
+    @board.fire_upon_cell("A2")
+    @board.fire_upon_cell("A3")
+    assert_equal "sank the Cruiser", @board.shot_result("A1")
+    assert_equal "sank the Cruiser", @board.shot_result("A2")
+    assert_equal "sank the Cruiser", @board.shot_result("A3")
+    @board.fire_upon_cell("D3")
+    assert_equal "was a miss", @board.shot_result("D3")
   end
 end
