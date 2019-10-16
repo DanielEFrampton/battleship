@@ -27,7 +27,7 @@ class Runner
   def setup
     @game = Game.new
     # place computer ships
-    @game.possible_ships.each do |ship_name, ship_object|
+    @game.create_ships.each do |ship_object|
       @game.computer_board.place_ship_randomly(ship_object)
     end
 
@@ -36,10 +36,10 @@ class Runner
     puts "The Cruiser is three units long, and the Submarine is two units long."
 
     # loop to prompt user to place all ships
-    @game.possible_ships.each do |ship_name, ship_object|
-      until @game.player_board.cells.values.any? {|cell| cell.ship == ship_object}
+    @game.create_ships.each do |ship_object|
+      until @game.player_board.all_ships.include?(ship_object)
         puts @game.player_board.render(true)
-        puts "Enter the coordinates for the #{@game.possible_ships[ship_name].name}:"
+        puts "Enter the coordinates for the #{ship_object.name}:"
         user_input = gets.chomp.upcase.split(' ')
         if @game.player_board.valid_placement?(ship_object, user_input)
           @game.player_board.place(ship_object, user_input)
@@ -53,6 +53,7 @@ class Runner
 
   def game_turns
     until @game.game_over?
+      require "pry"; binding.pry
     end
   end
 end
