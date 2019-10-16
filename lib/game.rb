@@ -3,8 +3,7 @@ class Game
   def initialize
     @player_board = Board.new
     @computer_board = Board.new
-    @possible_ships = {cruiser: Ship.new("Cruiser", 3),
-                      submarine: Ship.new("Submarine", 2)}
+    @possible_ships = [["Cruiser", 3],["Submarine", 2]]
     @last_turn = {computer_shot: nil,
                   computer_result: nil,
                   player_shot: nil,
@@ -13,5 +12,11 @@ class Game
 
   def game_over?
     [@player_board, @computer_board].any? {|board| board.all_ships_sunk?}
+  end
+
+  def create_ships
+    @possible_ships.map do |ship_name, ship_length|
+      Ship.new(ship_name, ship_length)
+    end
   end
 end
