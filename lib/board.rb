@@ -1,5 +1,5 @@
 class Board
-  attr_reader :cells
+  attr_reader :cells, :previous_random_shot
 
   def initialize
     @cells = {
@@ -20,6 +20,7 @@ class Board
                 "D3" => Cell.new("D3"),
                 "D4" => Cell.new("D4")
              }
+    @previous_random_shot = nil
   end
 
   def valid_coordinate?(coordinate_parameter)
@@ -119,6 +120,7 @@ class Board
       chosen_random_cell = random_cell
       if !chosen_random_cell.fired_upon?
         chosen_random_cell.fire_upon
+        @previous_random_shot = chosen_random_cell.coordinate
       end
     end
   end
@@ -137,5 +139,15 @@ class Board
 
   def fire_upon_cell(coordinate)
     @cells[coordinate].fire_upon
+  end
+
+  def shot_result(coordinate)
+    if @cells[coordinate].render == "M"
+      "was a miss"
+    elsif @cells[coordinate].render == "H"
+      "was a hit"
+    elsif @cells[coordinate].render == "X"
+      "sank the #{@cells[coordinate].ship.name}"
+    end
   end
 end
