@@ -4,10 +4,6 @@ class Game
     @player_board = Board.new
     @computer_board = Board.new
     @possible_ships = [["Cruiser", 3],["Submarine", 2]]
-    @last_turn = {computer_shot: nil,
-                  computer_result: nil,
-                  player_shot: nil,
-                  player_result: nil}
   end
 
   def game_over?

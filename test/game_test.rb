@@ -17,16 +17,13 @@ class GameTest < Minitest::Test
   end
 
   def test_it_initializes
-    # Break this into multiple tests
     assert_instance_of Board, @game_1.player_board
     assert_instance_of Board, @game_1.computer_board
-    assert_equal [:computer_shot, :computer_result, :player_shot, :player_result], @game_1.last_turn.keys
-    assert_equal true, @game_1.last_turn.values.all? {|value| value == nil}
   end
 
   def test_it_has_template_of_possible_ships
     expected_array = [["Cruiser", 3], ["Submarine", 2]]
-    
+
     assert_equal expected_array, @game_1.possible_ships
   end
 
