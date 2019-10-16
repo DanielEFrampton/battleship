@@ -53,7 +53,6 @@ class Runner
 
   def game_turns
     until @game.game_over?
-      require "pry"; binding.pry
     end
   end
 end
