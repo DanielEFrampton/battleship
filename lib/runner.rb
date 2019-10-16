@@ -54,21 +54,27 @@ class Runner
   def game_turns
     until @game.game_over?
       # render both boards
-      
+      puts "COMPUTER BOARD".center(40, "=") # change this to make it dynamic according to board size
+      puts "PLAYER BOARD".center(40, "=")
       # instruct player to enter coordinate to shoot
-
+      puts "Enter the coordinate for yout shot:"
       # get user input
-
-      # check if input is valid coordinate
-        # if valid, fire upon that coordinate on computer board, then proceed to next step
-        # if not, remind about syntax of coordinate, and prompt again
-
+      loop do
+        user_input = gets.chomp.upcase
+        if @game.computer_board.valid_coordinate?(user_input) && !@game.computer_board.cell_fired_upon?(user_input)
+          @game.computer_board.fire_upon_cell(user_input)
+          break
+        elsif @game.computer_board.valid_coordinate?(user_input) && @game.computer_board.cell_fired_upon?(user_input)
+          puts "You already fired upon that coordinate. Please try again:"
+        else
+          puts "That was not a valid coordinate. Use the syntax: A1"
+        end
+      end
       # computer randomly fires at player board
 
       # display results of both players' shots
 
       # return to top of loop
-
     end
   end
 end

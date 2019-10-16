@@ -130,4 +130,12 @@ class Board
   def all_ships_sunk?
     all_ships.all? {|ship| ship.sunk?}
   end
+
+  def cell_fired_upon?(coordinate)
+    @cells[coordinate].fired_upon?
+  end
+
+  def fire_upon_cell(coordinate)
+    @cells[coordinate].fire_upon
+  end
 end
