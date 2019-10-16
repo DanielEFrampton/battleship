@@ -1,8 +1,3 @@
-require './lib/ship'
-require './lib/cell'
-require './lib/board'
-require './lib/game'
-
 class Runner
   attr_reader :game
 
@@ -89,6 +84,3 @@ class Runner
     puts @game.winner
   end
 end
-
-runner = Runner.new
-runner.main_menu
