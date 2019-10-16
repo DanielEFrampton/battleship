@@ -19,6 +19,7 @@ class Runner
       if user_input == 'p'
         setup # proceed to next step of game
         game_turns # after setup proceed to main game
+        end_game
       elsif user_input == 'q'
         break # ends the main_menu method, closing the Ruby file
       end
@@ -81,11 +82,11 @@ class Runner
       # display results of both players' shots
       puts "Your shot on #{user_input} #{@game.computer_board.shot_result(user_input)}."
       puts "My shot on #{@game.player_board.previous_random_shot} #{@game.player_board.shot_result(@game.player_board.previous_random_shot)}."
-
-
-
-      # return to top of loop
     end
+  end
+
+  def end_game
+    puts @game.winner
   end
 end
 
