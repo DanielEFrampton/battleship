@@ -44,7 +44,7 @@ class Runner
         if @game.player_board.valid_placement?(ship_object, user_input)
           @game.player_board.place(ship_object, user_input)
         else
-          puts "Those coordinates were invalid. Use the format: A1 A2#{" A3" if ship_name == :cruiser}"
+          puts "Those coordinates were invalid. Use the format: A1 A2#{" A3" if ship_object.name == 'Cruiser'}"
         end
       end
     end
