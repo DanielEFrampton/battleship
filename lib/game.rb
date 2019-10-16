@@ -10,4 +10,8 @@ class Game
                   player_shot: nil,
                   player_result: nil}
   end
+
+  def game_over?
+    [@player_board, @computer_board].any? {|board| board.all_ships_sunk?}
+  end
 end
