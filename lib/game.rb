@@ -14,6 +14,14 @@ class Game
     [@player_board, @computer_board].any? {|board| board.all_ships_sunk?}
   end
 
+  def winner
+    if @computer_board.all_ships_sunk?
+      "You won!"
+    elsif @player_board.all_ships_sunk?
+      "I won! You suck!"
+    end
+  end
+
   def create_ships
     @possible_ships.map do |ship_name, ship_length|
       Ship.new(ship_name, ship_length)

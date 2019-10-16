@@ -11,6 +11,7 @@ class Runner
   end
 
   def main_menu
+    system("clear")
     puts "Welcome to BATTLESHIP"
     loop do
       puts "Enter p to play#{" again" if @game != nil}. Enter q to quit."
@@ -18,6 +19,7 @@ class Runner
       if user_input == 'p'
         setup # proceed to next step of game
         game_turns # after setup proceed to main game
+        end_game
       elsif user_input == 'q'
         break # ends the main_menu method, closing the Ruby file
       end
@@ -44,7 +46,7 @@ class Runner
         if @game.player_board.valid_placement?(ship_object, user_input)
           @game.player_board.place(ship_object, user_input)
         else
-          puts "Those coordinates were invalid. Use the format: A1 A2#{" A3" if ship_name == :cruiser}"
+          puts "Those coordinates were invalid. Use the format: A1 A2#{" A3" if ship_object.name == 'Cruiser'}"
         end
       end
     end
@@ -52,24 +54,39 @@ class Runner
   # after designing game turns revisit whether to render the board one more time
 
   def game_turns
+    system("clear")
     until @game.game_over?
       # render both boards
-      
+      puts "COMPUTER BOARD".center(40, "=") # change this to make it dynamic according to board size
+      puts @game.computer_board.render
+      puts "PLAYER BOARD".center(40, "=")
+      puts @game.player_board.render(true)
       # instruct player to enter coordinate to shoot
-
+      puts "Enter the coordinate for yout shot:"
       # get user input
-
-      # check if input is valid coordinate
-        # if valid, fire upon that coordinate on computer board, then proceed to next step
-        # if not, remind about syntax of coordinate, and prompt again
-
+      user_input = nil
+      loop do
+        user_input = gets.chomp.upcase
+        if @game.computer_board.valid_coordinate?(user_input) && !@game.computer_board.cell_fired_upon?(user_input)
+          @game.computer_board.fire_upon_cell(user_input)
+          break
+        elsif @game.computer_board.valid_coordinate?(user_input) && @game.computer_board.cell_fired_upon?(user_input)
+          puts "You already fired upon that coordinate. Please try again:"
+        else
+          puts "That was not a valid coordinate. Use the syntax: A1"
+        end
+      end
       # computer randomly fires at player board
+      @game.player_board.fire_upon_random_cell
 
       # display results of both players' shots
-
-      # return to top of loop
-
+      puts "Your shot on #{user_input} #{@game.computer_board.shot_result(user_input)}."
+      puts "My shot on #{@game.player_board.previous_random_shot} #{@game.player_board.shot_result(@game.player_board.previous_random_shot)}."
     end
+  end
+
+  def end_game
+    puts @game.winner
   end
 end
 

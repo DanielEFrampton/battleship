@@ -16,6 +16,10 @@ class BoardTest < Minitest::Test
     assert_instance_of Board, @board
   end
 
+  def test_it_starts_with_no_previous_random_shot
+    assert_nil @board.previous_random_shot
+  end
+
   def test_it_starts_with_hash_of_cells
 
     # Confirms .cells returns a Hash object
@@ -194,5 +198,10 @@ class BoardTest < Minitest::Test
     assert_equal 15, @board.cells.values.count { |cell| cell.fired_upon? }
     @board.fire_upon_random_cell
     assert_equal 16, @board.cells.values.count { |cell| cell.fired_upon? }
+  end
+
+  def test_it_remembers_previous_random_shot
+    @board.fire_upon_random_cell
+    assert_equal true, @board.valid_coordinate?(@board.previous_random_shot)
   end
 end
