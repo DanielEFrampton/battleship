@@ -53,6 +53,22 @@ class Runner
 
   def game_turns
     until @game.game_over?
+      # render both boards
+      
+      # instruct player to enter coordinate to shoot
+
+      # get user input
+
+      # check if input is valid coordinate
+        # if valid, fire upon that coordinate on computer board, then proceed to next step
+        # if not, remind about syntax of coordinate, and prompt again
+
+      # computer randomly fires at player board
+
+      # display results of both players' shots
+
+      # return to top of loop
+
     end
   end
 end
