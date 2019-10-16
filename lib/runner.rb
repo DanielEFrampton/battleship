@@ -11,6 +11,7 @@ class Runner
   end
 
   def main_menu
+    system("clear")
     puts "Welcome to BATTLESHIP"
     loop do
       puts "Enter p to play#{" again" if @game != nil}. Enter q to quit."
