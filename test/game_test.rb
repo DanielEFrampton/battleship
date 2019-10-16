@@ -9,6 +9,7 @@ class GameTest < Minitest::Test
 
   def setup
     @game_1 = Game.new
+    @game_2 = Game.new
   end
 
   def test_it_exists
@@ -38,4 +39,35 @@ class GameTest < Minitest::Test
     assert_equal true, @game_1.game_over?
   end
 
+  def test_it_generates_winner_message
+    @game_1.computer_board.place(Ship.new("Cruiser", 3), ["A1", "A2", "A3"])
+    @game_1.computer_board.place(Ship.new("Submarine", 2), ["B1", "B2"])
+    @game_1.player_board.place(Ship.new("Cruiser", 3), ["A1", "A2", "A3"])
+    @game_1.player_board.place(Ship.new("Submarine", 2), ["B1", "B2"])
+    @game_1.player_board.fire_upon_cell("A1")
+    @game_1.player_board.fire_upon_cell("A2")
+    @game_1.player_board.fire_upon_cell("A3")
+    @game_1.player_board.fire_upon_cell("B1")
+    @game_1.player_board.fire_upon_cell("B2")
+    assert_equal "I won! You suck!", @game_1.winner
+
+    @game_2.player_board.place(Ship.new("Cruiser", 3), ["A1", "A2", "A3"])
+    @game_2.player_board.place(Ship.new("Submarine", 2), ["B1", "B2"])
+    @game_2.computer_board.place(Ship.new("Cruiser", 3), ["A1", "A2", "A3"])
+    @game_2.computer_board.place(Ship.new("Submarine", 2), ["B1", "B2"])
+    @game_2.computer_board.fire_upon_cell("A1")
+    @game_2.computer_board.fire_upon_cell("A2")
+    @game_2.computer_board.fire_upon_cell("A3")
+    @game_2.computer_board.fire_upon_cell("B1")
+    @game_2.computer_board.fire_upon_cell("B2")
+    assert_equal "You won!", @game_2.winner
+  end
+
+  def test_it_can_create_ships_from_template
+    assert_equal 2, @game_1.create_ships.length
+    assert_equal "Cruiser", @game_1.create_ships[0].name
+    assert_equal 3, @game_1.create_ships[0].length
+    assert_equal "Submarine", @game_1.create_ships[1].name
+    assert_equal 2, @game_1.create_ships[1].length
+  end
 end
