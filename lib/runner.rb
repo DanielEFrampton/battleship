@@ -53,9 +53,12 @@ class Runner
 
   def game_turns
     until @game.game_over?
+      system("clear")
       # render both boards
       puts "COMPUTER BOARD".center(40, "=") # change this to make it dynamic according to board size
+      puts @game.computer_board.render
       puts "PLAYER BOARD".center(40, "=")
+      puts @game.player_board.render(true)
       # instruct player to enter coordinate to shoot
       puts "Enter the coordinate for yout shot:"
       # get user input
