@@ -52,8 +52,8 @@ class Runner
   # after designing game turns revisit whether to render the board one more time
 
   def game_turns
-    # until @game.game_over?
-    # end
+    until @game.game_over?
+    end
   end
 end
 

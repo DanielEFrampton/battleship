@@ -122,4 +122,12 @@ class Board
       end
     end
   end
+
+  def all_ships
+    @cells.values.map {|cell| cell.ship}.compact.uniq
+  end
+
+  def all_ships_sunk?
+    all_ships.all? {|ship| ship.sunk?}
+  end
 end
