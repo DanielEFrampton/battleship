@@ -53,8 +53,8 @@ class Runner
   # after designing game turns revisit whether to render the board one more time
 
   def game_turns
+    system("clear")
     until @game.game_over?
-      system("clear")
       # render both boards
       puts "COMPUTER BOARD".center(40, "=") # change this to make it dynamic according to board size
       puts @game.computer_board.render
@@ -63,6 +63,7 @@ class Runner
       # instruct player to enter coordinate to shoot
       puts "Enter the coordinate for yout shot:"
       # get user input
+      user_input = nil
       loop do
         user_input = gets.chomp.upcase
         if @game.computer_board.valid_coordinate?(user_input) && !@game.computer_board.cell_fired_upon?(user_input)
@@ -75,8 +76,13 @@ class Runner
         end
       end
       # computer randomly fires at player board
+      @game.player_board.fire_upon_random_cell
 
       # display results of both players' shots
+      puts "Your shot on #{user_input} #{@game.computer_board.shot_result(user_input)}."
+      puts "My shot on #{@game.player_board.previous_random_shot} #{@game.player_board.shot_result(@game.player_board.previous_random_shot)}."
+
+
 
       # return to top of loop
     end
