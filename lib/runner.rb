@@ -1,8 +1,3 @@
-require './lib/ship'
-require './lib/cell'
-require './lib/board'
-require './lib/game'
-
 class Runner
   attr_reader :game
 
@@ -62,7 +57,7 @@ class Runner
       puts "PLAYER BOARD".center(40, "=")
       puts @game.player_board.render(true)
       # instruct player to enter coordinate to shoot
-      puts "Enter the coordinate for yout shot:"
+      puts "Enter the coordinate for your shot:"
       # get user input
       user_input = nil
       loop do
@@ -77,11 +72,24 @@ class Runner
         end
       end
       # computer randomly fires at player board
-      @game.player_board.fire_upon_random_cell
-
+      if @game.computer_hunting == true
+          # randomly select an adjacent coord to previous hit
+          chosen_adjacent_shot = @game.player_board.adjacent_coords(@game.most_recent_hit).sample
+          @game.player_board.fire_upon_cell(chosen_adjacent_shot)
+          @game.player_board.previous_computer_shot = chosen_adjacent_shot
+      else
+        @game.player_board.fire_upon_random_cell
+      end
+      # computer checks result of shot to see if it should be hunting nearby
+      if @game.player_board.cells[@game.player_board.previous_computer_shot].render == "H"
+        @game.computer_hunting = true
+        @game.most_recent_hit = @game.player_board.previous_computer_shot
+      elsif @game.player_board.cells[@game.player_board.previous_computer_shot].render == "X"
+        @game.computer_hunting = false
+      end
       # display results of both players' shots
       puts "Your shot on #{user_input} #{@game.computer_board.shot_result(user_input)}."
-      puts "My shot on #{@game.player_board.previous_random_shot} #{@game.player_board.shot_result(@game.player_board.previous_random_shot)}."
+      puts "My shot on #{@game.player_board.previous_computer_shot} #{@game.player_board.shot_result(@game.player_board.previous_computer_shot)}."
     end
   end
 
@@ -89,6 +97,3 @@ class Runner
     puts @game.winner
   end
 end
-
-runner = Runner.new
-runner.main_menu
