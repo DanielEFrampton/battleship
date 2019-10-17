@@ -76,7 +76,7 @@ class CellTest < Minitest::Test
     submarine_starting_health = @cell_2.ship.health
     @cell_2.fire_upon
     assert_equal @cell_2.ship.health, submarine_starting_health - 1
-    end
+  end
 
   def test_it_renders_cell_states
     assert_equal ".", @cell.render
