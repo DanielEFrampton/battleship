@@ -28,12 +28,16 @@ class Board
     @cells.keys.include?(coordinate_parameter)
   end
 
-  def valid_placement?(ship_object_parameter, array_of_coordinates)
-    unless array_of_coordinates.all? { |coordinate| valid_coordinate?(coordinate) }
-      return false
-    end
+  def array_valid?(coord_array)
+    coord_array.all? { |coordinate| valid_coordinate?(coordinate) }
+  end
 
-    if array_of_coordinates.any? { |coordinate| !@cells[coordinate].empty? }
+  def empty_array?(coord_array)
+    array_of_coordinates.any? { |coord_element| !@cells[coord_element].empty? }
+  end
+
+  def valid_placement?(ship_object_parameter, array_of_coordinates)
+    unless array_valid?(array_of_coordinates) && empty_array?(array_of_coordinates)
       return false
     end
 
@@ -42,8 +46,8 @@ class Board
       letters = []
       numbers = []
       array_of_coordinates.each do |coordinate|
-        letters << coordinate.chars[0]
-        numbers << coordinate.chars[1].to_i
+        letters << coordinate.chars[0] # ["A","1"] -> ["A"] -> letters which is now ["A"]
+        numbers << coordinate.chars[1].to_i # ["A","1"] -> ["1"] -> "1" -> 1 -> numbers which is now [1]
       end
       all_letters_are_same = letters.all? { |letter| letter == letters[0] }
       all_numbers_are_same = numbers.all? { |number| number == numbers[0] }
