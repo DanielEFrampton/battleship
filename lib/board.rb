@@ -160,7 +160,7 @@ class Board
     adjacent_coords << "#{coord_letter}#{coord_number + 1}" # Coordinate to the right (e.g., "A2")
     adjacent_coords << "#{(coord_letter.ord - 1).chr}#{coord_number}" # Coordinate above (e.g, "@1")
     adjacent_coords << "#{(coord_letter.ord + 1).chr}#{coord_number}" # Coordinate below (e.g., "B1")
-    valid_adjacent_coords = adjacent_coords.find_all {|coordinate| valid_coordinate?(coordinate)} # only return the coordinates that are valid (e.g., ["A2","B1"])
-    valid_adjacent_coords.reject {|coordinate| @cells[coordinate].fired_upon?}
+    valid_adjacent_coords = adjacent_coords.find_all { |adj_coordinate| valid_coordinate?(adj_coordinate) } # only return the coordinates that are valid (e.g., ["A2","B1"])
+    valid_adjacent_coords.reject { |adj_coordinate| @cells[adj_coordinate].fired_upon? }
   end
 end
