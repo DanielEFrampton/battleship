@@ -256,4 +256,9 @@ class BoardTest < Minitest::Test
     @board.fire_upon_cell("D3")
     assert_equal "was a miss", @board.shot_result("D3")
   end
+
+  def test_it_can_generate_array_of_valid_adjacent_coords
+    assert_equal ["A2", "B1"], @board.adjacent_coords("A1")
+    assert_equal ["B1", "B3", "A2", "C2"], @board.adjacent_coords("B2")
+  end
 end

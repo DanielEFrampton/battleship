@@ -150,4 +150,15 @@ class Board
       "sank the #{@cells[coordinate].ship.name}"
     end
   end
+
+  def adjacent_coords(coordinate) # for example, "A1"
+    coord_letter = coordinate.chars[0] # store "A" in coord_letter
+    coord_number = coordinate.chars[1].to_i # change "1" to integer and store in coord_number
+    adjacent_coords = [] # declare empty array to put the adjacent coordinates in
+    adjacent_coords << "#{coord_letter}#{coord_number - 1}" # Coordinate to the left (e.g., "A0")
+    adjacent_coords << "#{coord_letter}#{coord_number + 1}" # Coordinate to the right (e.g., "A2")
+    adjacent_coords << "#{(coord_letter.ord - 1).chr}#{coord_number}" # Coordinate above (e.g, "@1")
+    adjacent_coords << "#{(coord_letter.ord + 1).chr}#{coord_number}" # Coordinate below (e.g., "B1")
+    adjacent_coords.find_all {|coordinate| valid_coordinate?(coordinate)} # only return the coordinates that are valid (e.g., ["A2","B1"])
+  end
 end
