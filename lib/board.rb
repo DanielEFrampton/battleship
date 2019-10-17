@@ -1,5 +1,6 @@
 class Board
-  attr_reader :cells, :previous_random_shot
+  attr_reader :cells
+  attr_accessor :previous_computer_shot
 
   def initialize
     @cells = {
@@ -20,7 +21,7 @@ class Board
                 "D3" => Cell.new("D3"),
                 "D4" => Cell.new("D4")
              }
-    @previous_random_shot = nil
+    @previous_computer_shot = "A1"
   end
 
   def valid_coordinate?(coordinate_parameter)
@@ -120,7 +121,7 @@ class Board
       chosen_random_cell = random_cell
       if !chosen_random_cell.fired_upon?
         chosen_random_cell.fire_upon
-        @previous_random_shot = chosen_random_cell.coordinate
+        @previous_computer_shot = chosen_random_cell.coordinate
       end
     end
   end
@@ -159,6 +160,7 @@ class Board
     adjacent_coords << "#{coord_letter}#{coord_number + 1}" # Coordinate to the right (e.g., "A2")
     adjacent_coords << "#{(coord_letter.ord - 1).chr}#{coord_number}" # Coordinate above (e.g, "@1")
     adjacent_coords << "#{(coord_letter.ord + 1).chr}#{coord_number}" # Coordinate below (e.g., "B1")
-    adjacent_coords.find_all {|coordinate| valid_coordinate?(coordinate)} # only return the coordinates that are valid (e.g., ["A2","B1"])
+    valid_adjacent_coords = adjacent_coords.find_all {|coordinate| valid_coordinate?(coordinate)} # only return the coordinates that are valid (e.g., ["A2","B1"])
+    valid_adjacent_coords.reject {|coordinate| @cells[coordinate].fired_upon?}
   end
 end
