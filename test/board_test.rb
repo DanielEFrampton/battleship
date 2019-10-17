@@ -44,8 +44,13 @@ class BoardTest < Minitest::Test
     assert_equal 0, @board.cells.count {|key, cell| cell.coordinate != key}
   end
 
-  def test_it_starts_with_no_previous_random_shot
-    assert_nil @board.previous_random_shot
+  def test_it_starts_with_default_previous_computer_shot
+    assert_equal "A1", @board.previous_computer_shot
+  end
+
+  def test_it_can_change_previous_computer_shot
+    @board.previous_computer_shot = "A2"
+    assert_equal "A2", @board.previous_computer_shot
   end
 
   def test_it_can_identify_a_valid_coordinate
@@ -199,9 +204,9 @@ class BoardTest < Minitest::Test
     assert_equal 16, @board.cells.values.count { |cell| cell.fired_upon? }
   end
 
-  def test_it_remembers_previous_random_shot
+  def test_it_remembers_previous_computer_shot
     @board.fire_upon_random_cell
-    assert_equal true, @board.valid_coordinate?(@board.previous_random_shot)
+    assert_equal true, @board.valid_coordinate?(@board.previous_computer_shot)
   end
 
   def test_it_return_list_of_all_ships_on_board
@@ -260,5 +265,10 @@ class BoardTest < Minitest::Test
   def test_it_can_generate_array_of_valid_adjacent_coords
     assert_equal ["A2", "B1"], @board.adjacent_coords("A1")
     assert_equal ["B1", "B3", "A2", "C2"], @board.adjacent_coords("B2")
+  end
+
+  def test_it_excludes_fired_upon_cells_from_adjacent_coords
+    @board.fire_upon_cell("A2")
+    assert_equal ["B1"], @board.adjacent_coords("A1")
   end
 end

@@ -16,9 +16,21 @@ class GameTest < Minitest::Test
     assert_instance_of Game, @game_1
   end
 
-  def test_it_initializes
+  def test_it_initializes_with_boards
     assert_instance_of Board, @game_1.player_board
     assert_instance_of Board, @game_1.computer_board
+  end
+
+  def test_it_initializes_with_changeable_computer_hunting_status
+    assert_equal false, @game_1.computer_hunting
+    @game_1.computer_hunting = true
+    assert_equal true, @game_1.computer_hunting
+  end
+
+  def test_it_tracks_most_recent_hit_and_can_change_it
+    assert_equal nil, @game_1.most_recent_hit
+    @game_1.most_recent_hit = "A1"
+    assert_equal "A1", @game_1.most_recent_hit
   end
 
   def test_it_has_template_of_possible_ships
