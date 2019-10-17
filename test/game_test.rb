@@ -28,7 +28,7 @@ class GameTest < Minitest::Test
   end
 
   def test_it_tracks_most_recent_hit_and_can_change_it
-    assert_equal nil, @game_1.most_recent_hit
+    assert_nil @game_1.most_recent_hit
     @game_1.most_recent_hit = "A1"
     assert_equal "A1", @game_1.most_recent_hit
   end
