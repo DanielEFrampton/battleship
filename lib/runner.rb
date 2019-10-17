@@ -72,8 +72,12 @@ class Runner
         end
       end
       # computer randomly fires at player board
-      @game.player_board.fire_upon_random_cell
-
+      if @game.player_board.cells[@game.player_board.previous_random_shot].render == "H"
+          # randomly select an adjacent coord to previous hit
+          @game.player_board.fire_upon_cell(@game.player_board.adjacent_coords(@game.player_board.previous_random_shot).sample)
+      else
+        @game.player_board.fire_upon_random_cell
+      end
       # display results of both players' shots
       puts "Your shot on #{user_input} #{@game.computer_board.shot_result(user_input)}."
       puts "My shot on #{@game.player_board.previous_random_shot} #{@game.player_board.shot_result(@game.player_board.previous_random_shot)}."
