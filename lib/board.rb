@@ -33,14 +33,13 @@ class Board
   end
 
   def empty_array?(coord_array)
-    array_of_coordinates.any? { |coord_element| !@cells[coord_element].empty? }
+    coord_array.all? { |coord_element| @cells[coord_element].empty? }
   end
 
   def valid_placement?(ship_object_parameter, array_of_coordinates)
     unless array_valid?(array_of_coordinates) && empty_array?(array_of_coordinates)
       return false
     end
-
     # Confirm that length of array is same as ship length
     if ship_object_parameter.length == array_of_coordinates.length
       letters = []
